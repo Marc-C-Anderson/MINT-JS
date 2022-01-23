@@ -10,6 +10,4 @@ A Javascript implementation of MINT
 
 To run all the unit tests
 
-```shell
-npm test
-```
+Open SpecRunner.html in a browser.

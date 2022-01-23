@@ -8,6 +8,10 @@ Start from the ground up with unit tests in mind. Jasmine on the command line is
 
 <https://jasmine.github.io/pages/getting_started.html>
 
+Getting started with jasmine
+
+<https://www.testim.io/blog/jasmine-js-a-from-scratch-tutorial-to-start-testing/>
+
 ## Node and NPM
 
 Current versions
@@ -21,14 +25,17 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 
 ## Development Log
 
-| Date     | Item                                     |
-|----------|------------------------------------------|
-| 20210122 | Initial idea and conversation with J.H   |
-|          | Project stood up in github               |
-| 20210123 | Test framework and initial documentation |
+| Date     | Item                                                        |
+|----------|-------------------------------------------------------------|
+| 20210122 | Initial idea and conversation with J.H                      |
+|          | Project stood up in github                                  |
+| 20210123 | Test framework and initial documentation                    |
+|          | Moving away from nodejs towards BBD with standalone Jasmine |
 
 ## TODO
 
- * terminal - develop a simple glass terminal
+| Item | Activity                        | Status   |
+|------|---------------------------------|----------|
+| tty  | Develop a simple glass terminal | progress |
+| tty  | Add circular i/o buffers        | planned  |
  
-

@@ -1,5 +1,5 @@
-## Ignore node modules
-/node_modules/
-
-## Ignore package files
-package-lock.json
+## Ignore old jasmine files
+src/Song.js
+src/Player.js
+spec/PlayerSpec.js
+spec/SpecHelper.js
