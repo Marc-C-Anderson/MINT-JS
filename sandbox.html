@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MINT JS (Sandbox)</title>
+    <style>
+        table,
+        td {
+            border: 1px solid lightgray;
+            border-collapse: collapse;
+        }
+
+        td {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="ui"></div>
+    <!-- <script src="src/mint.js"></script-->
+    <script src="src/terminal.js"></script>
+    <script>
+        'strict'
+        terminal()
+        const numCols = 80
+        const numRows = 24
+        const vram = new Array(numCols * numRows)
+        let ch = 'A'
+        let i = 0
+        for (let row = 0; row < numRows; row++) {
+            for (let col = 0; col < numCols; col++) {
+                vram[row * numCols + col] = String.fromCharCode(ch.charCodeAt(0) + i)
+                i = i < 25 ? i + 1 : 0
+            }
+        }
+        createDisplay('ui', numCols, numRows, vram)
+        document.addEventListener('keydown', (e) => { console.log(e.code) });
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
   "description": "A JavaScript implementation of MINT",
   "main": "src/mint.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Marc-C-Anderson/MINT-JS/issues"
   },
-  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme"
+  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme",
+  "devDependencies": {
+    "jasmine": "^4.0.2"
+  }
 }
