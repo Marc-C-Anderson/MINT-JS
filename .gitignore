@@ -1,5 +1,4 @@
-## Ignore old jasmine files
-src/Song.js
-src/Player.js
-spec/PlayerSpec.js
-spec/SpecHelper.js
+## Ignore folders
+
+
+## Ignore files

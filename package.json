@@ -4,7 +4,7 @@
   "description": "A JavaScript implementation of MINT",
   "main": "src/mint.js",
   "scripts": {
-    "test": "jasmine spec/mint.js"
+    "test": ""
   },
   "repository": {
     "type": "git",

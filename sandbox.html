@@ -22,8 +22,8 @@
     <script src="src/terminal.js"></script>
     <script>
         'strict'
-        mint()
-        terminal()
+        //mint()
+        //terminal()
         const numCols = 80
         const numRows = 24
         const vram = new Array(numCols * numRows)
@@ -35,8 +35,37 @@
                 i = i < 25 ? i + 1 : 0
             }
         }
-        createDisplay('ui', numCols, numRows, vram)
+        const mint = new Mint()
+        console.log(mint.version())
+        const terminal = new Terminal()
+        console.log(terminal.version())
+
+        terminal.createDisplay('ui', numCols, numRows, vram)
         document.addEventListener('keydown', (e) => { console.log(e.code) });
+
+        const element = document.getElementById('ui');
+        let start
+        let previousTimeStamp;
+
+        function step(timestamp) {
+            if (start === undefined) {
+                start = timestamp;
+            }
+            const elapsed = timestamp - start;
+
+            if (previousTimeStamp !== timestamp) {
+                // Math.min() is used here to make sure the element stops at exactly 200px
+                const count = Math.min(0.1 * elapsed, 200);
+                element.style.transform = 'translateX(' + count + 'px)';
+            }
+
+            if (elapsed < 2000) { // Stop the animation after 2 seconds
+                previousTimeStamp = timestamp
+                window.requestAnimationFrame(step);
+            }
+        }
+
+        window.requestAnimationFrame(step)
     </script>
 </body>
 
