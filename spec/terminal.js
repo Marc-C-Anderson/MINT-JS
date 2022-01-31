@@ -1,9 +1,9 @@
 'strict'
 
 describe('Terminal', function () {
-  it('Should be the correct version', function () {
-    const terminal = new Terminal()
-    expect(terminal.version()).toBe('Terminal Version 1.0.0 (Build 20220129)');
+  it('Shall have a valid version', function () {
+    const myTerminal = terminal()
+    expect(myTerminal.version()).toBe('Terminal Version 1.0.0 (Build 20220130)');
   });
 });
 

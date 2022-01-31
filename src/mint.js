@@ -1,43 +1,23 @@
 'strict'
 
-// const mint = () => { console.log('A Javascript implementation of MINT') }
-// const version = 'MINT Version 1.0.0 Build(20220129)'
-
-// const stack = new Array(8192)
-// let tos = 0
-
-Mint = function () {
-    this._version = 'MINT Version 1.0.0 Build(20220129)'
-    this._stack = new Array(8192)
-    this._tos = 0
+function mint2() {
+    const _stack = new Array(8192)
+    let _tos = 0
+    const version = () => { return 'MINT Version 1.0.0 Build(20220201)' }
+    const tos = () => { return _tos }
+    const init = () => { _tos = 0 }
+    const push = (val) => {
+        _stack[_tos] = val
+        _tos += 1
+        if (_tos > _stack.length) { console.error('stack overflow') }
+    }
+    const pop = () => {
+        _tos -= 1
+        if (_tos < 0) { console.error('stack underun.') }
+        let val = _stack[_tos]
+        return val
+    }
+    const interpret = () => 1
+    return Object.freeze({ version, tos, init, push, pop, interpret })
 }
 
-Mint.prototype.version = function () {
-    return this._version // 'MINT Version 1.0.0 Build(20220129)'
-}
-
-Mint.prototype.interpret = function (exp) {
-    return 1
-}
-
-Mint.prototype.tos = function () {
-    return this._tos
-}
-
-
-Mint.prototype.push = function (val) {
-    this._stack[_tos] = val
-    this._tos += 1
-    if (this._tos > this._stack.length) { console.error('stack overun.') }
-}
-
-Mint.prototype.pop = function () {
-    this._tos -= 1
-    if (this._tos < 0) { console.error('stack underun.') }
-    let val = this._stack[_tos]
-    return val
-}
-
-Mint.prototype.init = function () {
-    _tos = 0
-}

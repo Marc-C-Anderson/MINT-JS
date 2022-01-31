@@ -27,15 +27,18 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 
 | Date     | Item                                                        |
 |----------|-------------------------------------------------------------|
-| 20210122 | Initial idea and conversation with J.H                      |
+| 20220122 | Initial idea and conversation with J.H                      |
 |          | Project stood up in github                                  |
-| 20210123 | Test framework and initial documentation                    |
+| 20220123 | Test framework and initial documentation                    |
 |          | Moving away from nodejs towards BBD with standalone Jasmine |
+| 20220201 | Converted to Crockford objects                              |
 
 ## TODO
 
 | Item | Activity                        | Status   |
 |------|---------------------------------|----------|
 | tty  | Develop a simple glass terminal | progress |
+| tty  | Capture keyboard input          | planned  |
 | tty  | Add circular i/o buffers        | planned  |
+| tty  | Test with loopback              | planned  |
  

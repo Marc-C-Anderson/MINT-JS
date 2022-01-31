@@ -11,3 +11,7 @@ A Javascript implementation of MINT
 To run all the unit tests
 
 Open SpecRunner.html in a browser.
+
+## Converting to Crockford Objects
+
+<https://fek.io/blog/crockford-objects-in-java-script>
