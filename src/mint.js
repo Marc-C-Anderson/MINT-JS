@@ -24,33 +24,42 @@ function mint() {
         let result = 0
         chars.forEach(element => {
             switch (element) {
-                case '1': push(element|0); break
-                case '2': push(element|0); break
-                case '3': push(element|0); break
-                case '4': push(element|0); break
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5': push(element | 0); break
                 case '<': {
                     const a = pop()
                     const b = pop()
-                    const c = a - b
-                    result = c > 0 ? 1 : 0
+                    const c = b - a
+                    result = c < 0 ? 1 : 0
                 } break
                 case '>': {
                     const a = pop()
                     const b = pop()
-                    const c = a - b
-                    result = c < 0 ? 1 : 0
+                    const c = b - a
+                    result = c > 0 ? 1 : 0
                 } break
                 case '=': {
                     const a = pop()
                     const b = pop()
-                    const c = a - b
+                    const c = b - a
                     result = c == 0 ? 1 : 0
                 } break
                 case '+': {
                     const a = pop()
                     const b = pop()
-                    //const c = a - b
-                    result = a + b
+                    result = b + a
+                } break
+                case '-': {
+                    const a = pop()
+                    const b = pop()
+                    result = b - a
+                } break
+                case '_': { // unary negate
+                    const a = pop()
+                    push(0 - a)
                 } break
 
                 default: break
@@ -61,7 +70,7 @@ function mint() {
     return Object.freeze({ version, tos, init, push, pop, interpret })
 }
 
-const m = mint()
-const str = '1 2+'
-const r = m.interpret(str)
-console.log(str, r)
+// const m = mint()
+// const str = '1 2+'
+// const r = m.interpret(str)
+// console.log(str, r)
