@@ -21,51 +21,73 @@ function mint() {
 
     const interpret = (str) => {
         const chars = str.split('')
-        let result = 0
         chars.forEach(element => {
             switch (element) {
+                case '0':
                 case '1':
                 case '2':
                 case '3':
                 case '4':
-                case '5': push(element | 0); break
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9': push(element | 0); break
                 case '<': {
                     const a = pop()
                     const b = pop()
-                    const c = b - a
-                    result = c < 0 ? 1 : 0
+                    push(b - a < 0 ? 1 : 0)
                 } break
                 case '>': {
                     const a = pop()
                     const b = pop()
-                    const c = b - a
-                    result = c > 0 ? 1 : 0
+                    push(b - a > 0 ? 1 : 0)
                 } break
                 case '=': {
                     const a = pop()
                     const b = pop()
-                    const c = b - a
-                    result = c == 0 ? 1 : 0
+                    push(b - a == 0 ? 1 : 0)
                 } break
                 case '+': {
                     const a = pop()
                     const b = pop()
-                    result = b + a
+                    push(b + a)
                 } break
                 case '-': {
                     const a = pop()
                     const b = pop()
-                    result = b - a
+                    push(b - a)
                 } break
                 case '_': { // unary negate
-                    const a = pop()
-                    push(0 - a)
+                    push(0 - pop())
                 } break
-
-                default: break
+                case '&': {
+                    const a = pop()
+                    const b = pop()
+                    push(b & a)
+                } break
+                case '|': {
+                    const a = pop()
+                    const b = pop()
+                    push(b | a)
+                } break
+                case '*': {
+                    const a = pop()
+                    const b = pop()
+                    push(b * a)
+                } break
+                case '{': { // increment
+                    push(pop() + 1)
+                } break
+                case '}': { // decrement
+                    push(pop() - 1)
+                } break
+                case '\'': { // drop
+                    pop()
+                } break
+                default: console.log('default \'' + element + '\''); break
             }
         });
-        return result
     }
     return Object.freeze({ version, tos, init, push, pop, interpret })
 }

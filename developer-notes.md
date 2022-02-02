@@ -42,8 +42,10 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 | tty  | Capture keyboard input          | planned  |
 | tty  | Add circular i/o buffers        | planned  |
 | tty  | Test with loopback              | planned  |
-| tty  | Add Jasmine tests               | progress |
-| mint | Add jasmine tests               | progress |
+| tty  | Add Jasmine tests                   | progress |
+| mint | Add jasmine tests                   | progress |
+| mint | Add support for hexadecimal numbers | planned  |
+| mint | Add support for multidigit numbers  | planned  |
 
 ## Language Specification
 
@@ -51,3 +53,20 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 
 Numbers are 16bit.
 Negation is achieved using the _ operator.
+
+### Operators
+
+|Symbol|Operation|Notes                                          |
+|------|---------|-----------------------------------------------| 
+|'     | drop    |pop the top value off the stack and discard it |
+|_| negate||
+|{| increment||
+|}| decrement||
+|+| add||
+|-| subtract||
+|*| multiply||
+|&| and||
+|\|| or||
+|>| greater than||
+|<| less than||
+|=| equals||
