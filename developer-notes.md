@@ -32,6 +32,7 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 | 20220123 | Test framework and initial documentation                    |
 |          | Moving away from nodejs towards BBD with standalone Jasmine |
 | 20220201 | Converted to Crockford objects                              |
+| 20220203 | Adding tests                                                |
 
 ## TODO
 
@@ -41,4 +42,31 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 | tty  | Capture keyboard input          | planned  |
 | tty  | Add circular i/o buffers        | planned  |
 | tty  | Test with loopback              | planned  |
- 
+| tty  | Add Jasmine tests                   | progress |
+| mint | Add jasmine tests                   | progress |
+| mint | Add support for hexadecimal numbers | planned  |
+| mint | Add support for multidigit numbers  | planned  |
+
+## Language Specification
+
+### Numbers
+
+Numbers are 16bit.
+Negation is achieved using the _ operator.
+
+### Operators
+
+|Symbol|Operation|Notes                                          |
+|------|---------|-----------------------------------------------| 
+|'     | drop    |pop the top value off the stack and discard it |
+|_| negate||
+|{| increment||
+|}| decrement||
+|+| add||
+|-| subtract||
+|*| multiply||
+|&| and||
+|\|| or||
+|>| greater than||
+|<| less than||
+|=| equals||
