@@ -21,20 +21,23 @@ function mint() {
 
     const interpret = (str) => {
         const chars = str.split('')
-        let isNumber = false;
+        let isNumber = false
+        let isHex = false
         let number = 0;
         chars.forEach(ch => {
             if (ch >= '0' && ch <= '9') {
                 isNumber = true
-                number *= 10 // 0 * 10 = 0
+                number *= isHex ? 16 : 10 // 0 * 10 = 0
                 number += ch | 0 // 0 + digit = digit
             } else {
                 if (isNumber) {
                     push(number)
                     isNumber = false
+                    isHex = false
                     number = 0
                 }
                 switch (ch) {
+                    case '#': isHex = true; break
                     case '<': {
                         const a = pop()
                         const b = pop()
@@ -121,6 +124,7 @@ function mint() {
         if (isNumber) {
             push(number)
             isNumber = false
+            isHex = false
             number = 0
         }
     }
@@ -130,7 +134,7 @@ function mint() {
 
 // dont forget to comment this out after testing
 // ideally delete when the interpreter is complete
-// const m2 = mint()
-// const str = '#10' // 0x10
-// m2.interpret(str)
-// console.log('test "' + str + '", ' + m2.pop())
+const m2 = mint()
+const str = '#10' // 0x10
+m2.interpret(str)
+console.log('test "' + str + '", ' + m2.pop())

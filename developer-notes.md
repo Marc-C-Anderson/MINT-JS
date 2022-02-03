@@ -44,14 +44,16 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 | tty  | Test with loopback                  | planned  |
 | tty  | Add Jasmine tests                   | progress |
 | mint | Add jasmine tests                   | progress |
-| mint | Add support for hexadecimal numbers | planned  |
+| mint | Add support for hexadecimal numbers | progress |
 | mint | Add support for multidigit numbers  | done     |
+| mint | convert away from crockford to vanilla | progress |
+| mint | convert to internal 8 bit architecture | planned |
 
 ## Language Specification
 
 ### Numbers
 
-Numbers are 16bit.
+Numbers are 16 bit.
 Negation is achieved using the _ operator.
 
 ### Operators
