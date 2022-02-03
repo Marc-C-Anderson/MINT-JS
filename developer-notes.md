@@ -36,16 +36,16 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 
 ## TODO
 
-| Item | Activity                        | Status   |
-|------|---------------------------------|----------|
-| tty  | Develop a simple glass terminal | progress |
-| tty  | Capture keyboard input          | planned  |
-| tty  | Add circular i/o buffers        | planned  |
-| tty  | Test with loopback              | planned  |
+| Item | Activity                            | Status   |
+|------|-------------------------------------|----------|
+| tty  | Develop a simple glass terminal     | progress |
+| tty  | Capture keyboard input              | planned  |
+| tty  | Add circular i/o buffers            | planned  |
+| tty  | Test with loopback                  | planned  |
 | tty  | Add Jasmine tests                   | progress |
 | mint | Add jasmine tests                   | progress |
 | mint | Add support for hexadecimal numbers | planned  |
-| mint | Add support for multidigit numbers  | planned  |
+| mint | Add support for multidigit numbers  | done     |
 
 ## Language Specification
 
@@ -56,20 +56,25 @@ Negation is achieved using the _ operator.
 
 ### Operators
 
-|Symbol|Operation|Notes                                          |
-|------|---------|-----------------------------------------------| 
-|'     | drop    |pop the top value off the stack and discard it |
-|_| negate||
-|{| increment||
-|}| decrement||
-|+| add||
-|-| subtract||
-|*| multiply||
-|&| and||
-|\|| or||
-|>| greater than||
-|<| less than||
-|=| equals||
+|Symbol|Operation   |Notes                                         |
+|------|------------|----------------------------------------------| 
+|'     |drop        |pop the top value off the stack and discard it|
+|_     |negate      ||
+|{     |shift left  ||
+|}     |shift right ||
+|+     |add         ||
+|-     |subtract    ||
+|*     |multiply    ||
+|/     |divide      ||
+|&     |and         ||
+|\|    |or          ||
+|>     |greater than||
+|<     |less than   ||
+|=     |equals      ||
+|$     |swap        |a b -- b a  |
+|%     |over        |a b -- a b a|
+|~     |bitwise invert |a -- a|
+|~     |rotate |a b c -- b c a|
 
 ## John Notes
 
@@ -103,3 +108,20 @@ Also ELSE is also possible by following loop immediately after by the else (this
 ```forth
 3 2>(true)(false)
 ```
+
+OK it looks good.
+Mint is a very simple state machine. I can see the big switch statement You can model it with an array which looks up a function according to a byte code.
+You need an instruction pointer which points to the byte in your program.
+A heap pointer for pointing into unallocated memory
+A text input buffer
+There are two stack pointers, one for parameters, and one for storing the return address of the IP.
+
+{ and } btw mean shift left and shift right rather than increment / decrement
+
+Ignore the stuff about "You can model it with an array which looks up a function according to a byte code" that got left in after I had already found your switch table, same thing, more or less
+
+You sent
+Early days. Thanks for the heads up on shifts
+
+John Hardy
+I'd ditch the Crockford stuff, there's really very little point futzing about with Object.freeze and so on. Do it all with functions

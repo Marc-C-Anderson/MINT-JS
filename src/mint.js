@@ -21,78 +21,116 @@ function mint() {
 
     const interpret = (str) => {
         const chars = str.split('')
-        chars.forEach(element => {
-            switch (element) {
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9': push(element | 0); break
-                case '<': {
-                    const a = pop()
-                    const b = pop()
-                    push(b - a < 0 ? 1 : 0)
-                } break
-                case '>': {
-                    const a = pop()
-                    const b = pop()
-                    push(b - a > 0 ? 1 : 0)
-                } break
-                case '=': {
-                    const a = pop()
-                    const b = pop()
-                    push(b - a == 0 ? 1 : 0)
-                } break
-                case '+': {
-                    const a = pop()
-                    const b = pop()
-                    push(b + a)
-                } break
-                case '-': {
-                    const a = pop()
-                    const b = pop()
-                    push(b - a)
-                } break
-                case '_': { // unary negate
-                    push(0 - pop())
-                } break
-                case '&': {
-                    const a = pop()
-                    const b = pop()
-                    push(b & a)
-                } break
-                case '|': {
-                    const a = pop()
-                    const b = pop()
-                    push(b | a)
-                } break
-                case '*': {
-                    const a = pop()
-                    const b = pop()
-                    push(b * a)
-                } break
-                case '{': { // increment
-                    push(pop() + 1)
-                } break
-                case '}': { // decrement
-                    push(pop() - 1)
-                } break
-                case '\'': { // drop
-                    pop()
-                } break
-                default: console.log('default \'' + element + '\''); break
+        let isNumber = false;
+        let number = 0;
+        chars.forEach(ch => {
+            if (ch >= '0' && ch <= '9') {
+                isNumber = true
+                number *= 10 // 0 * 10 = 0
+                number += ch | 0 // 0 + digit = digit
+            } else {
+                if (isNumber) {
+                    push(number)
+                    isNumber = false
+                    number = 0
+                }
+                switch (ch) {
+                    case '<': {
+                        const a = pop()
+                        const b = pop()
+                        push(b - a < 0 ? 1 : 0)
+                    } break
+                    case '>': {
+                        const a = pop()
+                        const b = pop()
+                        push(b - a > 0 ? 1 : 0)
+                    } break
+                    case '=': {
+                        const a = pop()
+                        const b = pop()
+                        push(b - a == 0 ? 1 : 0)
+                    } break
+                    case '+': {
+                        const a = pop()
+                        const b = pop()
+                        push(b + a)
+                    } break
+                    case '-': {
+                        const a = pop()
+                        const b = pop()
+                        push(b - a)
+                    } break
+                    case '_': { // unary negate
+                        push(0 - pop())
+                    } break
+                    case '&': {
+                        const a = pop()
+                        const b = pop()
+                        push(b & a)
+                    } break
+                    case '|': {
+                        const a = pop()
+                        const b = pop()
+                        push(b | a)
+                    } break
+                    case '*': {
+                        const a = pop()
+                        const b = pop()
+                        push(b * a)
+                    } break
+                    case '/': {
+                        const a = pop()
+                        const b = pop()
+                        push(b / a)
+                    } break
+                    case '{': { // shift left
+                        push(pop() << 1)
+                    } break
+                    case '}': { // shift right
+                        push(pop() >> 1)
+                    } break
+                    case '\'': { // drop
+                        pop()
+                    } break
+                    case '$': { // swap
+                        const a = pop()
+                        const b = pop()
+                        push(a)
+                        push(b)
+                    } break
+                    case '%': { // over
+                        const a = pop()
+                        const b = pop()
+                        push(b)
+                        push(a)
+                        push(b)
+                    } break
+                    case '~': { // rot a b c - b c a
+                        const a = pop() // b c
+                        const b = pop() // c
+                        const c = pop() // tos
+                        push(b) // b
+                        push(c) // b c
+                        push(a) // b c a
+                    } break
+                    default: console.log('\'' + ch + '\''); break
+                }
+
             }
         });
+        if (isNumber) {
+            push(number)
+            isNumber = false
+            number = 0
+        }
     }
+
     return Object.freeze({ version, tos, init, push, pop, interpret })
 }
 
-// const m = mint()
-// const str = '1 2+'
-// const r = m.interpret(str)
-// console.log(str, r)
+// dont forget to comment this out after testing
+// ideally delete when the interpreter is complete
+const m2 = mint()
+const str = '5 2/$ \'' // 1
+m2.interpret(str)
+console.log('test "' + str + '", ' + m2.pop())
