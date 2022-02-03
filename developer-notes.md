@@ -17,9 +17,9 @@ Getting started with jasmine
 Current versions
 
 ```shell
-PS C:\Users\Marc\projects\MINT-JS> node -v
+node -v
 v14.18.1
-PS C:\Users\Marc\projects\MINT-JS> npm -v
+npm -v
 6.14.15
 ```
 
@@ -33,6 +33,7 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 |          | Moving away from nodejs towards BBD with standalone Jasmine |
 | 20220201 | Converted to Crockford objects                              |
 | 20220203 | Adding tests                                                |
+| 20220204 | Multidigit and hex numbers done |
 
 ## TODO
 
@@ -44,10 +45,11 @@ PS C:\Users\Marc\projects\MINT-JS> npm -v
 | tty  | Test with loopback                  | planned  |
 | tty  | Add Jasmine tests                   | progress |
 | mint | Add jasmine tests                   | progress |
-| mint | Add support for hexadecimal numbers | progress |
-| mint | Add support for multidigit numbers  | done     |
+| mint | Add support for hexadecimal numbers | done |
+| mint | Add support for multidigit numbers  | done |
 | mint | convert away from crockford to vanilla | progress |
 | mint | convert to internal 8 bit architecture | planned |
+| mint | revisit number parsing | planned |
 
 ## Language Specification
 

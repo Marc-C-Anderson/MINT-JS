@@ -14,14 +14,14 @@ describe("Mint interpreter", function () {
     m.interpret('10')
     expect(m.pop()).toBe(10);
   });
-  // it('test "#10", $10', function () {
-  //   m.interpret('#10')
-  //   expect(m.pop()).toBe(0x10);
-  // });
-  // it('test "#FF", $FF', function () {
-  //   m.interpret('#FF')
-  //   expect(m.pop()).toBe(0xFF);
-  // });
+  it('test "#10", $10', function () {
+    m.interpret('#10')
+    expect(m.pop()).toBe(0x10);
+  });
+  it('test "#FF", $FF', function () {
+    m.interpret('#FF')
+    expect(m.pop()).toBe(0xFF);
+  });
   it('test "2 3=", 0', function () {
     m.interpret('2 3=')
     expect(m.pop()).toBe(0);

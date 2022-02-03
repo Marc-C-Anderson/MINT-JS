@@ -18,7 +18,6 @@ function mint() {
         return val
     }
 
-
     const interpret = (str) => {
         const chars = str.split('')
         let isNumber = false
@@ -29,6 +28,10 @@ function mint() {
                 isNumber = true
                 number *= isHex ? 16 : 10 // 0 * 10 = 0
                 number += ch | 0 // 0 + digit = digit
+            } else if (isHex && ch >= 'A' && ch <= 'F') {
+                isNumber = true
+                number *= 16
+                number += parseInt(ch, 16)
             } else {
                 if (isNumber) {
                     push(number)
@@ -135,6 +138,6 @@ function mint() {
 // dont forget to comment this out after testing
 // ideally delete when the interpreter is complete
 const m2 = mint()
-const str = '#10' // 0x10
+const str = '#FF' // 0x10
 m2.interpret(str)
 console.log('test "' + str + '", ' + m2.pop())
