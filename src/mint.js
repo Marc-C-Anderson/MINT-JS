@@ -130,7 +130,7 @@ function mint() {
 
 // dont forget to comment this out after testing
 // ideally delete when the interpreter is complete
-const m2 = mint()
-const str = '5 2/$ \'' // 1
-m2.interpret(str)
-console.log('test "' + str + '", ' + m2.pop())
+// const m2 = mint()
+// const str = '#10' // 0x10
+// m2.interpret(str)
+// console.log('test "' + str + '", ' + m2.pop())

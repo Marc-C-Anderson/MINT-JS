@@ -134,10 +134,14 @@ describe("Mint interpreter", function () {
     m.interpret('1 2 3~+*')
     expect(m.pop()).toBe(8);
   });
+  // it('test "10 11 12\\#3$ \'$ \'$ \'", 4', function () {
+  //   m.interpret('10 11 12\\#3$ \'$ \'$ \'')
+  //   expect(m.pop()).toBe(4);
+  // });
 
 
 
-  // test "10 11 12\\#3$ '$ '$ '", 4
+  // 
   // test "2a!a@",2
   // test "3x! 1 x@+x! x@", 4
   // test "3x! 1_ x@+x! x@", 2

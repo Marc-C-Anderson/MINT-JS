@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/Marc-C-Anderson/MINT-JS/issues"
   },
-  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme",
-  "devDependencies": {
-    "jslint": "^0.12.1"
-  }
+  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme"
 }
