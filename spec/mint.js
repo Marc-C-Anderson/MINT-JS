@@ -109,19 +109,21 @@ describe("Mint interpreter", function () {
   //.cstr "1 3",$22,"+"
   //expect "1 3 DUP +", 6
 
-
   // it('test "5 2/\'", 2', function () {
   //   m.interpret('5 2/\'')
   //   expect(m.pop()).toBe(2);
   // });
+
   it('test "3 5$ -", 2', function () {
     m.interpret('3 5$ -')
     expect(m.pop()).toBe(2);
   });
+
   // it('test "5 2/$ \'", 1', function () {
   //   m.interpret('5 2/$ \'')
   //   expect(m.pop()).toBe(1);
   // });
+
   it('test "2 3%++", 7', function () {
     m.interpret('2 3%++')
     expect(m.pop()).toBe(7);
@@ -134,15 +136,20 @@ describe("Mint interpreter", function () {
     m.interpret('1 2 3~+*')
     expect(m.pop()).toBe(8);
   });
+  
   // it('test "10 11 12\\#3$ \'$ \'$ \'", 4', function () {
   //   m.interpret('10 11 12\\#3$ \'$ \'$ \'')
   //   expect(m.pop()).toBe(4);
   // });
 
+  // it('test "2a!a@",2', function () {
+  //   m.interpret('2a!a@')
+  //   expect(m.pop()).toBe(2);
+  // });
+
 
 
   // 
-  // test "2a!a@",2
   // test "3x! 1 x@+x! x@", 4
   // test "3x! 1_ x@+x! x@", 2
   // test ":X1; X", 1

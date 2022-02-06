@@ -119,7 +119,7 @@ function mint() {
                         push(c) // b c
                         push(a) // b c a
                     } break
-                    default: console.log('\'' + ch + '\''); break
+                    default: console.log('default \'' + ch + '\''); break
                 }
 
             }
@@ -137,7 +137,10 @@ function mint() {
 
 // dont forget to comment this out after testing
 // ideally delete when the interpreter is complete
-const m2 = mint()
-const str = '#FF' // 0x10
-m2.interpret(str)
-console.log('test "' + str + '", ' + m2.pop())
+//  test "5 2/'", 2
+//  test "5 2/$ '", 1
+// test "2a!a@",2
+// const m2 = mint()
+// const str = '2a!a@' //, 2
+// m2.interpret(str)
+// console.log('test "' + str + '", ' + m2.pop())

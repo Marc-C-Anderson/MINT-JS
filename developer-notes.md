@@ -33,23 +33,23 @@ npm -v
 |          | Moving away from nodejs towards BBD with standalone Jasmine |
 | 20220201 | Converted to Crockford objects                              |
 | 20220203 | Adding tests                                                |
-| 20220204 | Multidigit and hex numbers done |
+| 20220204 | Multidigit and hex numbers done                             |
 
 ## TODO
 
-| Item | Activity                            | Status   |
-|------|-------------------------------------|----------|
-| tty  | Develop a simple glass terminal     | progress |
-| tty  | Capture keyboard input              | planned  |
-| tty  | Add circular i/o buffers            | planned  |
-| tty  | Test with loopback                  | planned  |
-| tty  | Add Jasmine tests                   | progress |
-| mint | Add jasmine tests                   | progress |
-| mint | Add support for hexadecimal numbers | done |
-| mint | Add support for multidigit numbers  | done |
-| mint | convert away from crockford to vanilla | progress |
-| mint | convert to internal 8 bit architecture | planned |
-| mint | revisit number parsing | planned |
+| Item | Activity                               | Status   | Priority |
+|------|----------------------------------------|----------|----------|
+| tty  | Develop a simple glass terminal        | progress | 1        |
+| tty  | Capture keyboard input                 | planned  | 2        |
+| tty  | Add circular i/o buffers               | planned  | 4        |
+| tty  | Test with loopback                     | planned  | 3        |
+| tty  | Add Jasmine tests                      | progress | 9        |
+| mint | convert crockford to vanilla           | progress | 1        |
+| mint | revisit number parsing                 | planned  | 2        |
+| mint | Add jasmine tests                      | progress | 9        |
+| mint | convert to internal 8 bit architecture | planned  | 9        |
+| mint | Add support for hexadecimal numbers    | done     | 9        |
+| mint | Add support for multidigit numbers     | done     | 9        |
 
 ## Language Specification
 
