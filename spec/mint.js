@@ -25,6 +25,12 @@ describe("Mint Interpreter", function () {
     expect(mintPop()).toBe(0x10);
   });
 
+  it('test "#FF", $FF', function () {
+    mintInterpreter('#FF')
+    expect(mintPop()).toBe(0xFF);
+  });
+
+
   //   it("Reset the machine.", function () {
   //     m.init()
   //     expect(m.tos()).toBe(0)
@@ -33,10 +39,6 @@ describe("Mint Interpreter", function () {
 
 // describe("Mint interpreter", function () {
 //   const m = mint()
-//   it('test "#FF", $FF', function () {
-//     m.interpret('#FF')
-//     expect(m.pop()).toBe(0xFF);
-//   });
 //   it('test "2 3=", 0', function () {
 //     m.interpret('2 3=')
 //     expect(m.pop()).toBe(0);

@@ -4,7 +4,8 @@
   "description": "A JavaScript implementation of MINT",
   "main": "src/mint.js",
   "scripts": {
-    "test": ""
+    "test": "",
+    "lint": "npm standard"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Marc-C-Anderson/MINT-JS/issues"
   },
-  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme"
+  "homepage": "https://github.com/Marc-C-Anderson/MINT-JS#readme",
+  "devDependencies": {
+    "standard": "^16.0.4"
+  }
 }

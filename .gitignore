@@ -1,5 +1,5 @@
 ## Ignore folders
-
+#package-lock.json
 
 ## Ignore files
 node_modules/

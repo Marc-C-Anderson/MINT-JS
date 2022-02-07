@@ -5,81 +5,103 @@
  * A black box javascript implementation *
  \***************************************/
 
- const mintVersion = () => { return 'MINT Version 1.0.0 Build(20220207)' }
- const mintSignon = () => { return 'MINT 1.0 >' }
- 
- let mintTos = 0
- const mintStack = new Array(8192)
- 
- const mintPush = (val) => {
-     mintStack[mintTos] = val
-     mintTos += 1
-     if (mintTos > mintStack.length) { console.error('stack overflow') }
- }
- 
- let isNumber = false
- let number = 0
- 
- const doNumber = (ch) => { isNumber = true; number *= isHex ? 0x10 : 10; number += ch | 0 }
- 
- const endNumber = () => { if (isNumber) { mintPush(number); number = 0; isNumber = false } if (isHex) isHex = false; }
- 
- const doDefault = (ch) => {
-     endNumber()
-     console.log('default \'' + ch + '\'');
- }
- 
- const doHash = () => { isHex = true }
- 
- const mintInterpret = (ch) => {
-     switch (ch) {
-         case '#': doHash(); break
-         case '0':
-         case '1':
-         case '2':
-         case '3':
-         case '4':
-         case '5':
-         case '6':
-         case '7':
-         case '8':
-         case '9': doNumber(ch); break
-         default: doDefault(ch); break
-     }
- }
- 
- const mintInterpreter = (str) => {
-     const chars = str.split('')
-     chars.forEach(ch => {
-         mintInterpret(ch)
-     });
-     if (mintTos == 0) { endNumber() }
- }
- 
- const mintPop = () => {
-     mintTos -= 1
-     if (mintTos < 0) { console.error('stack underun.') }
-     let val = mintStack[mintTos]
-     return val
- }
- 
- /**
-  * A testbed function to debug features as they are added.
-  * @param {*} str The expression to test
-  * @param {*} expects The expected result
-  */
- const mintTest = (str, expects) => {
-     mintInterpreter(str)
-     const result = mintPop()
-     if (expects == result) {
-         console.log('test success ' + str + ' expects ' + expects + ' got ' + result)
-     } else {
-         console.error('test failed ' + str + ' expects ' + expects + ' got ' + result)
-     }
- }
- 
- mintTest('#10', 0x10)
- 
+const mintVersion = () => { return 'MINT Version 1.0.0 Build(20220207)' }
+const mintSignon = () => { return 'MINT 1.0 >' }
+
+let mintTos = 0
+const mintStack = new Array(8192)
+
+const mintPush = (val) => {
+    mintStack[mintTos] = val
+    mintTos += 1
+    if (mintTos > mintStack.length) { console.error('stack overflow') }
+}
+
+let isNumber = false
+let number = 0
+
+const doNumber = (ch) => {
+    isNumber = true
+    number *= isHex ? 0x10 : 10
+    number += ch | 0
+}
+
+const endNumber = () => { if (isNumber) { mintPush(number); number = 0; isNumber = false } if (isHex) isHex = false; }
+
+const doDefault = (ch) => {
+    endNumber()
+    console.log('default \'' + ch + '\'');
+}
+
+const doHash = () => { isHex = true }
+
+/**
+ * For now, this is for hexadecimal numbers.
+ * If the hex flag is set, treat 'A' - 'F' as hexadecimal numbers
+ * @param {*} ch The current character
+ */
+const doFunction = (ch) => {
+    if (isHex) {
+        let i = parseInt(ch, 16)
+        doNumber(i)
+    }
+}
+
+const mintInterpret = (ch) => {
+    switch (ch) {
+        case '#': doHash(); break
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9': doNumber(ch); break
+        case 'A':
+        case 'B':
+        case 'C':
+        case 'D':
+        case 'E':
+        case 'F': doFunction(ch); break
+        default: doDefault(ch); break
+    }
+}
+
+const mintInterpreter = (str) => {
+    const chars = str.split('')
+    chars.forEach(ch => {
+        mintInterpret(ch)
+    });
+    if (mintTos == 0) { endNumber() }
+}
+
+const mintPop = () => {
+    mintTos -= 1
+    if (mintTos < 0) { console.error('stack underun.') }
+    let val = mintStack[mintTos]
+    return val
+}
+
+/**
+ * A testbed function to debug features as they are added.
+ * @param {*} str The expression to test
+ * @param {*} expects The expected result
+ */
+const mintTest = (str, expects) => {
+    mintInterpreter(str)
+    const result = mintPop()
+    if (expects == result) {
+        console.log('test success ' + str + ' expects ' + expects + ' got ' + result)
+    } else {
+        console.error('test failed ' + str + ' expects ' + expects + ' got ' + result)
+    }
+}
+
+mintTest('#FF', 0xFF)
+
 // function mint() {
 //     const _stack = new Array(8192)
 //     let _tos = 0
