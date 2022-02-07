@@ -3,7 +3,7 @@
 function mint() {
     const _stack = new Array(8192)
     let _tos = 0
-    const version = () => { return 'MINT Version 1.0.0 Build(20220201)' }
+    const version = () => { return 'MINT Version 1.0.0 Build(20220207)' }
     const tos = () => { return _tos }
     const init = () => { _tos = 0 }
     const push = (val) => {
@@ -17,7 +17,7 @@ function mint() {
         let val = _stack[_tos]
         return val
     }
-
+    
     const interpret = (str) => {
         const chars = str.split('')
         let isNumber = false
@@ -32,6 +32,8 @@ function mint() {
                 isNumber = true
                 number *= 16
                 number += parseInt(ch, 16)
+            } else if (ch >= 'a' && ch <= 'z') { // registers
+                push(ch)
             } else {
                 if (isNumber) {
                     push(number)
@@ -121,7 +123,6 @@ function mint() {
                     } break
                     default: console.log('default \'' + ch + '\''); break
                 }
-
             }
         });
         if (isNumber) {
@@ -135,12 +136,16 @@ function mint() {
     return Object.freeze({ version, tos, init, push, pop, interpret })
 }
 
+// debug a specific case
 // dont forget to comment this out after testing
 // ideally delete when the interpreter is complete
-//  test "5 2/'", 2
-//  test "5 2/$ '", 1
-// test "2a!a@",2
-// const m2 = mint()
-// const str = '2a!a@' //, 2
-// m2.interpret(str)
-// console.log('test "' + str + '", ' + m2.pop())
+const m2 = mint()
+const str = '#10' //, 0x10
+const expected = 0x10
+m2.interpret(str)
+const result = m2.pop()
+if (result == expected) {
+    console.log('pass')
+} else {
+    console.error('fail result: ' + result + ' expected:  ' + expected + ' tos: ' + m2.tos())
+}

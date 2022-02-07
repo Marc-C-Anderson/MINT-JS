@@ -206,7 +206,7 @@ describe("Mint interpreter", function () {
 describe("Mint", function () {
   const m = mint()
   it("Shall have a valid version", function () {
-    expect(m.version()).toBe('MINT Version 1.0.0 Build(20220201)')
+    expect(m.version()).toBe('MINT Version 1.0.0 Build(20220207)')
   });
   it("Reset the machine.", function () {
     m.init()
