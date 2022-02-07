@@ -10,18 +10,18 @@ describe("Mint interpreter", function () {
     m.interpret('0')
     expect(m.pop()).toBe(0);
   });
-  // it('test "10", 10', function () {
-  //   m.interpret('10')
-  //   expect(m.pop()).toBe(10);
-  // });
-  // it('test "#10", $10', function () {
-  //   m.interpret('#10')
-  //   expect(m.pop()).toBe(0x10);
-  // });
-  // it('test "#FF", $FF', function () {
-  //   m.interpret('#FF')
-  //   expect(m.pop()).toBe(0xFF);
-  // });
+  it('test "10", 10', function () {
+    m.interpret('10')
+    expect(m.pop()).toBe(10);
+  });
+  it('test "#10", $10', function () {
+    m.interpret('#10')
+    expect(m.pop()).toBe(0x10);
+  });
+  it('test "#FF", $FF', function () {
+    m.interpret('#FF')
+    expect(m.pop()).toBe(0xFF);
+  });
   it('test "2 3=", 0', function () {
     m.interpret('2 3=')
     expect(m.pop()).toBe(0);
@@ -50,14 +50,14 @@ describe("Mint interpreter", function () {
     m.interpret('1 2+')
     expect(m.pop()).toBe(3);
   });
-  // it('test "123 456+", 123+456', function () {
-  //   m.interpret('123 456+')
-  //   expect(m.pop()).toBe(123 + 456);
-  // });
-  // it('test "64 128+", 64+128', function () {
-  //   m.interpret('64 128+')
-  //   expect(m.pop()).toBe(64 + 128);
-  // });
+  it('test "123 456+", 123+456', function () {
+    m.interpret('123 456+')
+    expect(m.pop()).toBe(123 + 456);
+  });
+  it('test "64 128+", 64+128', function () {
+    m.interpret('64 128+')
+    expect(m.pop()).toBe(64 + 128);
+  });
   it('test "5 3-", 2', function () {
     m.interpret('5 3-')
     expect(m.pop()).toBe(2);
@@ -206,7 +206,7 @@ describe("Mint interpreter", function () {
 describe("Mint", function () {
   const m = mint()
   it("Shall have a valid version", function () {
-    expect(m.version()).toBe('MINT Version 1.0.0 Build(20220201)')
+    expect(m.version()).toBe('MINT Version 1.0.0 Build(20220207)')
   });
   it("Reset the machine.", function () {
     m.init()
