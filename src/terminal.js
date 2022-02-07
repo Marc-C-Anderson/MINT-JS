@@ -18,7 +18,7 @@ const ttyInit = () => {
 
 /**
  * Create the terminal in the DOM and render the contents of the tty RAM
- * @param {*} id 
+ * @param {*} id The id of the element to build on to.
  */
 const ttyCreate = (id) => {
     const table = document.createElement('table')
@@ -50,7 +50,7 @@ const ttyUpdate = () => {
 
 let ttyCP = 0 // The current character pointer into the screen buffer.
 let currentCol = 0
-let currentRow = ttyRows - 1
+const currentRow = ttyRows - 1
 
 const ttyMemMove = () => {
     for (let idx = ttyCols; idx < ttyCols * ttyRows; idx++) { ttyRam[idx - 80] = ttyRam[idx] }
@@ -59,13 +59,13 @@ const ttyMemMove = () => {
 
 /**
  * Put a character to the screen buffer and update the screen.
- * @param {*} ch The character to copy to the screen buffer. 
+ * @param {*} ch The character to copy to the screen buffer.
  * @returns void
  */
 const ttyPutC = (ch) => {
-    if (ch == 'Shift') return
-    if (ch == 'Backspace') return
-    if (ch == 'Enter') {
+    if (ch === 'Shift') return
+    if (ch === 'Backspace') return
+    if (ch === 'Enter') {
         ttyMemMove()
         currentCol = 0
         // if (currentRow > 0) {

@@ -19,36 +19,31 @@ const mintPush = (val) => {
 
 let isNumber = false
 let number = 0
+let isHex = false
 
-const doNumber = (ch) => {
-    isNumber = true
-    number *= isHex ? 0x10 : 10
-    number += ch | 0
-}
+const doNumber = (ch) => { isNumber = true; number *= isHex ? 0x10 : 10; number += ch | 0 }
 
-const endNumber = () => { if (isNumber) { mintPush(number); number = 0; isNumber = false } if (isHex) isHex = false; }
+const endNumber = () => { if (isNumber) { mintPush(number); number = 0; isNumber = false } if (isHex) isHex = false }
 
-const doDefault = (ch) => {
-    endNumber()
-    console.log('default \'' + ch + '\'');
-}
+const doDefault = (ch) => { endNumber(); console.log('default \'' + ch + '\'') }
 
-const doHash = () => { isHex = true }
+const doHash = () => { endNumber(); isHex = true }
 
 /**
  * For now, this is for hexadecimal numbers.
  * If the hex flag is set, treat 'A' - 'F' as hexadecimal numbers
  * @param {*} ch The current character
  */
-const doFunction = (ch) => {
-    if (isHex) {
-        let i = parseInt(ch, 16)
-        doNumber(i)
-    }
-}
+const doFunction = (ch) => { if (isHex) { doNumber(parseInt(ch, 16)) } }
+
+/**
+ * pop the 2 values off the top of the stack, check for equality and push the result.
+ */
+const doEquals = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b === a ? 1 : 0) }
 
 const mintInterpret = (ch) => {
     switch (ch) {
+        case ' ': endNumber(); break
         case '#': doHash(); break
         case '0':
         case '1':
@@ -60,6 +55,7 @@ const mintInterpret = (ch) => {
         case '7':
         case '8':
         case '9': doNumber(ch); break
+        case '=': doEquals(); break
         case 'A':
         case 'B':
         case 'C':
@@ -74,15 +70,14 @@ const mintInterpreter = (str) => {
     const chars = str.split('')
     chars.forEach(ch => {
         mintInterpret(ch)
-    });
-    if (mintTos == 0) { endNumber() }
+    })
+    if (mintTos === 0) { endNumber() }
 }
 
 const mintPop = () => {
     mintTos -= 1
     if (mintTos < 0) { console.error('stack underun.') }
-    let val = mintStack[mintTos]
-    return val
+    return mintStack[mintTos]
 }
 
 /**
@@ -93,14 +88,14 @@ const mintPop = () => {
 const mintTest = (str, expects) => {
     mintInterpreter(str)
     const result = mintPop()
-    if (expects == result) {
+    if (expects === result) {
         console.log('test success ' + str + ' expects ' + expects + ' got ' + result)
     } else {
         console.error('test failed ' + str + ' expects ' + expects + ' got ' + result)
     }
 }
 
-mintTest('#FF', 0xFF)
+mintTest('2 3=', 0)
 
 // function mint() {
 //     const _stack = new Array(8192)

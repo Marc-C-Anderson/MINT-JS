@@ -4,8 +4,7 @@
   "description": "A JavaScript implementation of MINT",
   "main": "src/mint.js",
   "scripts": {
-    "test": "",
-    "lint": "npm standard"
+    "test": ""
   },
   "repository": {
     "type": "git",

@@ -1,52 +1,53 @@
 'strict'
 
-describe("Mint Interpreter", function () {
-  it("Shall have a valid version", function () {
+describe('Mint Interpreter', function () {
+  it('Shall have a valid version', function () {
     expect(mintVersion()).toBe('MINT Version 1.0.0 Build(20220207)')
-  });
+  })
 
   it('test "1", 1', function () {
     mintInterpreter('1')
-    expect(mintPop()).toBe(1);
-  });
+    expect(mintPop()).toBe(1)
+  })
 
   it('test "0", 0', function () {
     mintInterpreter('0')
-    expect(mintPop()).toBe(0);
-  });
+    expect(mintPop()).toBe(0)
+  })
 
   it('test "10", 10', function () {
     mintInterpreter('10')
-    expect(mintPop()).toBe(10);
-  });
+    expect(mintPop()).toBe(10)
+  })
 
   it('test "#10", $10', function () {
     mintInterpreter('#10')
-    expect(mintPop()).toBe(0x10);
-  });
+    expect(mintPop()).toBe(0x10)
+  })
 
   it('test "#FF", $FF', function () {
     mintInterpreter('#FF')
-    expect(mintPop()).toBe(0xFF);
-  });
+    expect(mintPop()).toBe(0xFF)
+  })
 
+  it('test "2 3=", 0', function () {
+    mintInterpreter('2 3=')
+    expect(mintPop()).toBe(0)
+  })
+
+  it('test "3 3=", 1', function () {
+    mintInterpreter('3 3=')
+    expect(mintPop()).toBe(1)
+  })
 
   //   it("Reset the machine.", function () {
   //     m.init()
   //     expect(m.tos()).toBe(0)
-  //   });
-});
+  //   })
+})
 
 // describe("Mint interpreter", function () {
 //   const m = mint()
-//   it('test "2 3=", 0', function () {
-//     m.interpret('2 3=')
-//     expect(m.pop()).toBe(0);
-//   });
-//   it('test "3 3=", 1', function () {
-//     m.interpret('3 3=')
-//     expect(m.pop()).toBe(1);
-//   });
 //   it('test "2 3<", 1', function () {
 //     m.interpret('2 3<')
 //     expect(m.pop()).toBe(1);
@@ -120,8 +121,6 @@ describe("Mint Interpreter", function () {
 //     expect(m.pop()).toBe(5);
 //   });
 
-
-
 //   //call enter
 //   //.cstr "1 3",$22,"+"
 //   //expect "1 3 DUP +", 6
@@ -163,8 +162,6 @@ describe("Mint Interpreter", function () {
 //   //   m.interpret('2a!a@')
 //   //   expect(m.pop()).toBe(2);
 //   // });
-
-
 
 //   //
 //   // test "3x! 1 x@+x! x@", 4
@@ -209,10 +206,6 @@ describe("Mint Interpreter", function () {
 //   // test "2 \\1x! \\1x@", 2
 // });
 
-
-
-
-
 // describe("Stack Operations", function () {
 //   const m = mint()
 //   it("push a value onto the stack", function () {
@@ -227,4 +220,3 @@ describe("Mint Interpreter", function () {
 //     expect(m.tos()).toBe(0)
 //   });
 // });
-
