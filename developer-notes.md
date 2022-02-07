@@ -2,7 +2,18 @@
 
 [back](README.md)
 
-Develop a js implementation of MINT
+## Objective
+
+To develop a vanilla Javascript implementation of MINT.  
+The objective is to be fully functional and be assembler like in terms of memory and instructions.  
+The end result could be used to implement other versions for specific a CPU architecture.
+
+To that end, there are no objects and everything is considered as global.
+
+Namespace is handled by the "module's" prefix to variables and functions.
+
+mintXyz for mint  
+ttyXyz for the terminal
 
 ## TDD
 
@@ -15,6 +26,8 @@ Getting started with jasmine
 <https://www.testim.io/blog/jasmine-js-a-from-scratch-tutorial-to-start-testing/>
 
 ## Node and NPM
+
+NPM is used as the package manager but it's not strictly a node project. I've chosen to avoid the nodejs module system.
 
 Current versions
 
@@ -47,8 +60,8 @@ npm -v
 | tty  | Test with loopback                     | planned  | 3        |
 | tty  | Add Jasmine tests                      | progress | 9        |
 | mint | convert crockford to vanilla           | progress | 1        |
-| mint | revisit number parsing                 | planned  | 2        |
-| mint | Add jasmine tests                      | progress | 9        |
+| mint | revisit number parsing                 | progress | 2        |
+| mint | Add jasmine tests                      | progress | 3        |
 | mint | convert to internal 8 bit architecture | planned  | 9        |
 | mint | Add support for hexadecimal numbers    | done     | 9        |
 | mint | Add support for multidigit numbers     | done     | 9        |
@@ -122,12 +135,4 @@ A heap pointer for pointing into unallocated memory
 A text input buffer
 There are two stack pointers, one for parameters, and one for storing the return address of the IP.
 
-{ and } btw mean shift left and shift right rather than increment / decrement
-
 Ignore the stuff about "You can model it with an array which looks up a function according to a byte code" that got left in after I had already found your switch table, same thing, more or less
-
-You sent
-Early days. Thanks for the heads up on shifts
-
-John Hardy
-I'd ditch the Crockford stuff, there's really very little point futzing about with Object.freeze and so on. Do it all with functions

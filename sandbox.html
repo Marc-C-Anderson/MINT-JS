@@ -14,32 +14,29 @@
             font-family: monospace;
         }
     </style>
+    <script src="src/mint.js"></script>
+    <script src="src/terminal.js"></script>
 </head>
 
 <body>
     <div id="ui"></div>
-    <script src="src/mint.js"></script>
-    <script src="src/terminal.js"></script>
     <script>
         'strict'
-        const numCols = 80
-        const numRows = 24
-        const vram = new Array(numCols * numRows)
-        let ch = 'A'
-        let i = 0
-        for (let row = 0; row < numRows; row++) {
-            for (let col = 0; col < numCols; col++) {
-                vram[row * numCols + col] = String.fromCharCode(ch.charCodeAt(0) + i)
-                i = i < 25 ? i + 1 : 0
-            }
-        }
-        const mintv = mint()
-        console.log(mintv.version())
-        const term = terminal('ui', numCols, numRows, vram)
-        console.log(term.version())
 
-        term.createDisplay()
-        document.addEventListener('keydown', (e) => { console.log(e.code) });
+        const createMint = () => {
+            console.log(mintVersion())
+            console.log(ttyVersion())
+            ttyInit()
+            ttyCreate('ui')
+        }
+
+        const updateMint = (event) => {
+            console.log(event)
+            ttyPutC(event.key)
+        }
+
+        window.addEventListener('load', (event) => { createMint() })
+        document.addEventListener('keydown', (event) => { updateMint(event) });
     </script>
 </body>
 
