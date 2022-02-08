@@ -29,12 +29,15 @@ const doDefault = (ch) => { endNumber(); console.log('default \'' + ch + '\'') }
 
 const doHash = () => { endNumber(); isHex = true }
 
+const mintTodo = (str) => { console.log('todo - ' + str) }
+
 /**
  * For now, this is for hexadecimal numbers.
  * If the hex flag is set, treat 'A' - 'F' as hexadecimal numbers
  * @param {*} ch The current character
+ * TODO implement a raw parseInt
  */
-const doFunction = (ch) => { if (isHex) { doNumber(parseInt(ch, 16)) } }
+const doFunction = (ch) => { if (isHex) { doNumber(parseInt(ch, 16)) } else if (defining) { mintTodo('define function') } else { mintTodo('execute function') } }
 
 /**
  * pop the 2 values off the top of the stack, check for equality, push the result onto the stack.
@@ -129,17 +132,32 @@ const doRot = () => { endNumber(); const a = mintPop(); const b = mintPop(); con
  */
 const doVariable = (ch) => { endNumber(); const addr = 0; mintPush(addr) }
 
-const mintRegister = []
+const mintRegisters = []
 
 /**
  * pop the address of the variable and the value off the stack and store it in the variable.
  */
-const doStore = (ch) => { endNumber(); const addr = mintPop(); const val = mintPop(); mintRegister[addr] = val }
+const doStore = (ch) => { endNumber(); const addr = mintPop(); const val = mintPop(); mintRegisters[addr] = val }
 
 /**
  * pop the address of the variable off the stack, fetch the value from the register and push it onto the stack.
  */
-const doFetch = (ch) => { endNumber(); const addr = mintPop(); mintPush(mintRegister[addr]) }
+const doFetch = (ch) => { endNumber(); const addr = mintPop(); mintPush(mintRegisters[addr]) }
+
+let defining = false;
+
+/**
+* Start defining a function
+*/
+const doColon = () => { endNumber(); defining = true; mintTodo('start defining function') }
+
+const mintFunctions = []
+
+/**
+* End defining a function
+*/
+const doSemiColon = () => { endNumber(); if (defining) { defining = false } mintTodo('end defined function') }
+
 
 const mintInterpret = (ch) => {
     switch (ch) {
@@ -165,6 +183,8 @@ const mintInterpret = (ch) => {
         case '7':
         case '8':
         case '9': doNumber(ch); break
+        case ':': doColon(); break;
+        case ';': doSemiColon(); break;
         case '<': doLessThan(); break
         case '=': doEquals(); break
         case '>': doGreaterThan(); break
@@ -174,9 +194,11 @@ const mintInterpret = (ch) => {
         case 'C':
         case 'D':
         case 'E':
-        case 'F': doFunction(ch); break
+        case 'F':
+        case 'X': doFunction(ch); break
         case '_': doNegate(); break
-        case 'a': case 'x': doVariable(ch); break
+        case 'a':
+        case 'x': doVariable(ch); break
         case '{': doShiftLeft(); break
         case '|': doOr(); break
         case '}': doShiftRight(); break
@@ -218,3 +240,6 @@ const mintTest = (str, expects) => {
 mintTest('2a!a@', 2)
 mintTest('3x! 1 x@+x! x@', 4)
 mintTest('3x! 1_ x@+x! x@', 2)
+mintTest(':X1; X', 1)
+mintTest(':A100; A', 100)
+mintTest(':Aa!; 3A a@', 3)

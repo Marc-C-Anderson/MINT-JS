@@ -189,10 +189,24 @@ describe('Mint Interpreter', function () {
     expect(mintPop()).toBe(2)
   })
 
+  it('test ":X1; X", 1', function () {
+    mintInterpreter(':X1; X')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test ":A100;A", 100', function () {
+    mintInterpreter(':A100;A')
+    expect(mintPop()).toBe(100)
+  })
+  it('test ":Aa!; 3A a@", 3', function () {
+    mintInterpreter(':Aa!; 3A a@')
+    expect(mintPop()).toBe(3)
+  })
+
 })
 
-//   // test ":X1; X", 1
-//   // test ":A100;A", 100
+
+//   // 
 //   // test ":Aa!; 3A a@", 3
 //   // test ":Aa!;:Ba@;4AB", 4
 //   // test "\\:2; \\^", 2
