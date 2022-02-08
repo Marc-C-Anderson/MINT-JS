@@ -37,14 +37,124 @@ const doHash = () => { endNumber(); isHex = true }
 const doFunction = (ch) => { if (isHex) { doNumber(parseInt(ch, 16)) } }
 
 /**
- * pop the 2 values off the top of the stack, check for equality and push the result.
+ * pop the 2 values off the top of the stack, check for equality, push the result onto the stack.
  */
 const doEquals = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b === a ? 1 : 0) }
+
+/**
+ * pop the 2 values off the top of the stack, check if the first is less than the second, push the result onto the stack.
+ */
+const doLessThan = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b < a ? 1 : 0) }
+
+/**
+* pop the 2 values off the top of the stack, check if the first is greater than the second, push the result onto the stack.
+*/
+const doGreaterThan = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b > a ? 1 : 0) }
+
+/**
+* pop the 2 values off the top of the stack and add them, push the result onto the stack.
+*/
+const doAdd = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b + a) }
+
+/**
+* pop the 2 values off the top of the stack and subtract them, push the result onto the stack.
+*/
+const doSubtract = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b - a) }
+
+/**
+* pop the value off the top of the stack, negate it and push the result onto the stack.
+*/
+const doNegate = () => { endNumber(); const a = mintPop(); mintPush(0 - a) }
+
+/**
+* pop the 2 values off the top of the stack, and them, push the result onto the stack.
+*/
+const doAnd = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b & a) }
+
+/**
+* pop the 2 values off the top of the stack, or them, push the result onto the stack.
+*/
+const doOr = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b | a) }
+
+/**
+* pop the value off the top of the stack, shift it left and push the result onto the stack.
+*/
+const doShiftLeft = () => { endNumber(); const a = mintPop(); mintPush(a << 1) }
+
+/**
+* pop the value off the top of the stack, shift it right and push the result onto the stack.
+*/
+const doShiftRight = () => { endNumber(); const a = mintPop(); mintPush(a >> 1) }
+
+/**
+* drop the value off the top of the stack and throw it away.
+*/
+const doDrop = () => { endNumber(); mintPop() }
+
+/**
+* pop the 2 values off the top of the stack, or them, push the result onto the stack.
+*/
+const doMultiply = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b * a) }
+
+/**
+* pop the value off the top of the stack push it twice.
+*/
+const doDup = () => { endNumber(); const a = mintPop(); mintPush(a); mintPush(a) }
+
+/**
+* pop the 2 values off the top of the stack, divide them, push the result onto the stack.
+* TODO This needs checking.
+*/
+const doDivide = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b / a); mintPush(b % a) }
+
+/**
+* swap the top 2 values on the top of the stack.
+*/
+const doSwap = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(a); mintPush(b) }
+
+/**
+* copy the 2nd item over the top of the stack.
+*/
+const doOver = () => { endNumber(); const a = mintPop(); const b = mintPop(); mintPush(b); mintPush(a); mintPush(b) }
+
+/**
+* rotate the top 3 items on the top of the stack.
+*/
+const doRot = () => { endNumber(); const a = mintPop(); const b = mintPop(); const c = mintPop(); mintPush(b); mintPush(c); mintPush(a) }
+
+/**
+ * Calculate the address of the variable and place it on the stack.
+ * @param {*} ch The variable name
+ * TODO calculate the address
+ */
+const doVariable = (ch) => { endNumber(); const addr = 0; mintPush(addr) }
+
+const mintRegister = []
+
+/**
+ * pop the address of the variable and the value off the stack and store it in the variable.
+ */
+const doStore = (ch) => { endNumber(); const addr = mintPop(); const val = mintPop(); mintRegister[addr] = val }
+
+/**
+ * pop the address of the variable off the stack, fetch the value from the register and push it onto the stack.
+ */
+const doFetch = (ch) => { endNumber(); const addr = mintPop(); mintPush(mintRegister[addr]) }
 
 const mintInterpret = (ch) => {
     switch (ch) {
         case ' ': endNumber(); break
+        case '!': doStore(); break
+        case '"': doDup(); break
         case '#': doHash(); break
+        case '$': doSwap(); break
+        case '%': doOver(); break
+        case '&': doAnd(); break
+        case '*': doMultiply(); break
+        case '+': doAdd(); break
+        case '\'': doDrop(); break
+        case '-': doSubtract(); break
+        case '/': doDivide(); break
         case '0':
         case '1':
         case '2':
@@ -55,13 +165,22 @@ const mintInterpret = (ch) => {
         case '7':
         case '8':
         case '9': doNumber(ch); break
+        case '<': doLessThan(); break
         case '=': doEquals(); break
+        case '>': doGreaterThan(); break
+        case '@': doFetch(); break
         case 'A':
         case 'B':
         case 'C':
         case 'D':
         case 'E':
         case 'F': doFunction(ch); break
+        case '_': doNegate(); break
+        case 'a': case 'x': doVariable(ch); break
+        case '{': doShiftLeft(); break
+        case '|': doOr(); break
+        case '}': doShiftRight(); break
+        case '~': doRot(); break
         default: doDefault(ch); break
     }
 }
@@ -93,142 +212,9 @@ const mintTest = (str, expects) => {
     } else {
         console.error('test failed ' + str + ' expects ' + expects + ' got ' + result)
     }
+    console.log('tos = ' + mintTos)
 }
 
-mintTest('2 3=', 0)
-
-// function mint() {
-//     const _stack = new Array(8192)
-//     let _tos = 0
-//     const version = () => { return 'MINT Version 1.0.0 Build(20220207)' }
-//     const tos = () => { return _tos }
-//     const init = () => { _tos = 0 }
-//     const push = (val) => {
-//         _stack[_tos] = val
-//         _tos += 1
-//         if (_tos > _stack.length) { console.error('stack overflow') }
-//     }
-//     const pop = () => {
-//         _tos -= 1
-//         if (_tos < 0) { console.error('stack underun.') }
-//         let val = _stack[_tos]
-//         return val
-//     }
-
-//     const interpret = (str) => {
-//         const chars = str.split('')
-//         let isNumber = false
-//         let isHex = false
-//         let number = 0;
-//         chars.forEach(ch => {
-//             if (ch >= '0' && ch <= '9') {
-//                 isNumber = true
-//                 number *= isHex ? 16 : 10 // 0 * 10 = 0
-//                 number += ch | 0 // 0 + digit = digit
-//             } else if (isHex && ch >= 'A' && ch <= 'F') {
-//                 isNumber = true
-//                 number *= 16
-//                 number += parseInt(ch, 16)
-//             } else if (ch >= 'a' && ch <= 'z') { // registers
-//                 push(ch)
-//             } else {
-//                 if (isNumber) {
-//                     push(number)
-//                     isNumber = false
-//                     isHex = false
-//                     number = 0
-//                 }
-//                 switch (ch) {
-//                     case '#': isHex = true; break
-//                     case '<': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b - a < 0 ? 1 : 0)
-//                     } break
-//                     case '>': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b - a > 0 ? 1 : 0)
-//                     } break
-//                     case '=': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b - a == 0 ? 1 : 0)
-//                     } break
-//                     case '+': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b + a)
-//                     } break
-//                     case '-': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b - a)
-//                     } break
-//                     case '_': { // unary negate
-//                         push(0 - pop())
-//                     } break
-//                     case '&': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b & a)
-//                     } break
-//                     case '|': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b | a)
-//                     } break
-//                     case '*': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b * a)
-//                     } break
-//                     case '/': {
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b / a)
-//                     } break
-//                     case '{': { // shift left
-//                         push(pop() << 1)
-//                     } break
-//                     case '}': { // shift right
-//                         push(pop() >> 1)
-//                     } break
-//                     case '\'': { // drop
-//                         pop()
-//                     } break
-//                     case '$': { // swap
-//                         const a = pop()
-//                         const b = pop()
-//                         push(a)
-//                         push(b)
-//                     } break
-//                     case '%': { // over
-//                         const a = pop()
-//                         const b = pop()
-//                         push(b)
-//                         push(a)
-//                         push(b)
-//                     } break
-//                     case '~': { // rot a b c - b c a
-//                         const a = pop() // b c
-//                         const b = pop() // c
-//                         const c = pop() // tos
-//                         push(b) // b
-//                         push(c) // b c
-//                         push(a) // b c a
-//                     } break
-//                     default: console.log('default \'' + ch + '\''); break
-//                 }
-//             }
-//         });
-//         if (isNumber) {
-//             push(number)
-//             isNumber = false
-//             isHex = false
-//             number = 0
-//         }
-//     }
-
-//     return Object.freeze({ version, tos, init, push, pop, interpret })
-// }
+mintTest('2a!a@', 2)
+mintTest('3x! 1 x@+x! x@', 4)
+mintTest('3x! 1_ x@+x! x@', 2)

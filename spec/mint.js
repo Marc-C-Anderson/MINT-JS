@@ -40,132 +40,157 @@ describe('Mint Interpreter', function () {
     expect(mintPop()).toBe(1)
   })
 
-  //   it("Reset the machine.", function () {
-  //     m.init()
-  //     expect(m.tos()).toBe(0)
-  //   })
+  it('test "2 3<", 1', function () {
+    mintInterpreter('2 3<')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "3 3<", 0', function () {
+    mintInterpreter('3 3<')
+    expect(mintPop()).toBe(0)
+  })
+
+  it('test "3 3>", 0', function () {
+    mintInterpreter('3 3>')
+    expect(mintPop()).toBe(0)
+  })
+
+  it('test "4 3>", 1', function () {
+    mintInterpreter('4 3>')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "1 2+", 3', function () {
+    mintInterpreter('1 2+')
+    expect(mintPop()).toBe(3)
+  })
+
+  it('test "123 456+", 123+456', function () {
+    mintInterpreter('123 456+')
+    expect(mintPop()).toBe(123 + 456)
+  })
+
+  it('test "64 128+", 64+128', function () {
+    mintInterpreter('64 128+')
+    expect(mintPop()).toBe(64 + 128)
+  })
+
+  it('test "5 3-", 2', function () {
+    mintInterpreter('5 3-')
+    expect(mintPop()).toBe(2)
+  })
+
+  it('test "1_ 2+",1', function () {
+    mintInterpreter('1_ 2+')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "1_1+",0', function () {
+    mintInterpreter('1_1+')
+    expect(mintPop()).toBe(0)
+  })
+
+  it('test "3 5&", 1', function () {
+    mintInterpreter('3 5&')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "3 5|", 7', function () {
+    mintInterpreter('3 5|')
+    expect(mintPop()).toBe(7)
+  })
+
+  it('test "1{", 2', function () {
+    mintInterpreter('1{')
+    expect(mintPop()).toBe(2)
+  })
+
+  it('test "1}", 0', function () {
+    mintInterpreter('1}')
+    expect(mintPop()).toBe(0)
+  })
+
+  it('test "2}", 1', function () {
+    mintInterpreter('2}')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "1 2 3 \' +", 3', function () {
+    mintInterpreter('1 2 3 \' +')
+    expect(mintPop()).toBe(3)
+  })
+
+  it('test "2 3*", 6', function () {
+    mintInterpreter('2 3*')
+    expect(mintPop()).toBe(6)
+  })
+
+  it('test "1 2 3+*", 5', function () {
+    mintInterpreter('1 2 3+*')
+    expect(mintPop()).toBe(5)
+  })
+
+  //call enter
+  //.cstr "1 3",$22,"+"
+  //expect "1 3 DUP +", 6
+  it('test "1 3 \" +", 6', function () {
+    mintInterpreter('1 3 " +')
+    expect(mintPop()).toBe(6)
+    mintPop()
+  })
+
+  //   // it('test "5 2/\'", 2', function () {
+  //   //   mintInterpreter('5 2/\'')
+  //   //   expect(mintPop()).toBe(2)
+  //   // })
+
+  it('test "3 5$ -", 2', function () {
+    mintInterpreter('3 5$ -')
+    expect(mintPop()).toBe(2)
+  })
+
+  it('test "5 2/$ \'", 1', function () {
+    mintInterpreter('5 2/$ \'')
+    expect(mintPop()).toBe(1)
+  })
+
+  it('test "2 3%++", 7', function () {
+    mintInterpreter('2 3%++')
+    expect(mintPop()).toBe(7)
+  })
+
+  it('test "1 2 3~\'\'", 2', function () {
+    mintInterpreter('1 2 3~\'\'')
+    expect(mintPop()).toBe(2)
+  })
+
+  it('test "1 2 3~+*", 8', function () {
+    mintInterpreter('1 2 3~+*')
+    expect(mintPop()).toBe(8)
+  })
+
+  // it('test "10 11 12\\#3$ \'$ \'$ \'", 4', function () {
+  //   mintInterpreter('10 11 12\\#3$ \'$ \'$ \'')
+  //   expect(mintPop()).toBe(4)
+  // })
+
+  it('test "2a!a@",2', function () {
+    mintInterpreter('2a!a@')
+    expect(mintPop()).toBe(2)
+  })
+
+  it('test "3x! 1 x@+x! x@", 4', function () {
+    mintInterpreter('3x! 1 x@+x! x@')
+    expect(mintPop()).toBe(4)
+  })
+
+  it('test "3x! 1_ x@+x! x@", 2', function () {
+    mintInterpreter('3x! 1_ x@+x! x@')
+    expect(mintPop()).toBe(2)
+  })
+
 })
 
-// describe("Mint interpreter", function () {
-//   const m = mint()
-//   it('test "2 3<", 1', function () {
-//     m.interpret('2 3<')
-//     expect(m.pop()).toBe(1);
-//   });
-//   it('test "3 3<", 0', function () {
-//     m.interpret('3 3<')
-//     expect(m.pop()).toBe(0);
-//   });
-//   it('test "3 3>", 0', function () {
-//     m.interpret('3 3>')
-//     expect(m.pop()).toBe(0);
-//   });
-//   it('test "4 3>", 1', function () {
-//     m.interpret('4 3>')
-//     expect(m.pop()).toBe(1);
-//   });
-//   it('test "1 2+", 3', function () {
-//     m.interpret('1 2+')
-//     expect(m.pop()).toBe(3);
-//   });
-//   it('test "123 456+", 123+456', function () {
-//     m.interpret('123 456+')
-//     expect(m.pop()).toBe(123 + 456);
-//   });
-//   it('test "64 128+", 64+128', function () {
-//     m.interpret('64 128+')
-//     expect(m.pop()).toBe(64 + 128);
-//   });
-//   it('test "5 3-", 2', function () {
-//     m.interpret('5 3-')
-//     expect(m.pop()).toBe(2);
-//   });
-//   it('test "1_ 2+",1', function () {
-//     m.interpret('1_ 2+')
-//     expect(m.pop()).toBe(1);
-//   });
-//   it('test "1_1+",0', function () {
-//     m.interpret('1_1+')
-//     expect(m.pop()).toBe(0);
-//   });
-//   it('test "3 5&", 1', function () {
-//     m.interpret('3 5&')
-//     expect(m.pop()).toBe(1);
-//   });
-//   it('test "3 5|", 7', function () {
-//     m.interpret('3 5|')
-//     expect(m.pop()).toBe(7);
-//   });
-//   it('test "1{", 2', function () {
-//     m.interpret('1{')
-//     expect(m.pop()).toBe(2);
-//   });
-//   it('test "1}", 0', function () {
-//     m.interpret('1}')
-//     expect(m.pop()).toBe(0);
-//   });
-//   it('test "2}", 1', function () {
-//     m.interpret('2}')
-//     expect(m.pop()).toBe(1);
-//   });
-//   it('test "1 2 3 \' +", 3', function () {
-//     m.interpret('1 2 3 \' +')
-//     expect(m.pop()).toBe(3);
-//   });
-//   it('test "2 3*", 6', function () {
-//     m.interpret('2 3*')
-//     expect(m.pop()).toBe(6);
-//   });
-//   it('test "1 2 3+*", 5', function () {
-//     m.interpret('1 2 3+*')
-//     expect(m.pop()).toBe(5);
-//   });
-
-//   //call enter
-//   //.cstr "1 3",$22,"+"
-//   //expect "1 3 DUP +", 6
-
-//   // it('test "5 2/\'", 2', function () {
-//   //   m.interpret('5 2/\'')
-//   //   expect(m.pop()).toBe(2);
-//   // });
-
-//   it('test "3 5$ -", 2', function () {
-//     m.interpret('3 5$ -')
-//     expect(m.pop()).toBe(2);
-//   });
-
-//   // it('test "5 2/$ \'", 1', function () {
-//   //   m.interpret('5 2/$ \'')
-//   //   expect(m.pop()).toBe(1);
-//   // });
-
-//   it('test "2 3%++", 7', function () {
-//     m.interpret('2 3%++')
-//     expect(m.pop()).toBe(7);
-//   });
-//   it('test "1 2 3~\'\'", 2', function () {
-//     m.interpret('1 2 3~\'\'')
-//     expect(m.pop()).toBe(2);
-//   });
-//   it('test "1 2 3~+*", 8', function () {
-//     m.interpret('1 2 3~+*')
-//     expect(m.pop()).toBe(8);
-//   });
-
-//   // it('test "10 11 12\\#3$ \'$ \'$ \'", 4', function () {
-//   //   m.interpret('10 11 12\\#3$ \'$ \'$ \'')
-//   //   expect(m.pop()).toBe(4);
-//   // });
-
-//   // it('test "2a!a@",2', function () {
-//   //   m.interpret('2a!a@')
-//   //   expect(m.pop()).toBe(2);
-//   // });
-
-//   //
-//   // test "3x! 1 x@+x! x@", 4
-//   // test "3x! 1_ x@+x! x@", 2
 //   // test ":X1; X", 1
 //   // test ":A100;A", 100
 //   // test ":Aa!; 3A a@", 3
@@ -204,7 +229,7 @@ describe('Mint Interpreter', function () {
 //   // test "0t! [1 2 3] $ a! ( a@ \\i@ {+ @ t@+t! ) t@", 6
 //   // test ":X10;\\0X", 10
 //   // test "2 \\1x! \\1x@", 2
-// });
+// })
 
 // describe("Stack Operations", function () {
 //   const m = mint()
@@ -212,11 +237,11 @@ describe('Mint Interpreter', function () {
 //     m.init()
 //     m.push(55)
 //     expect(m.tos()).toBe(1)
-//   });
+//   })
 //   it("pop a value from the stack", function () {
 //     m.init()
 //     m.push(55)
-//     expect(m.pop()).toBe(55)
+//     expect(mintPop()).toBe(55)
 //     expect(m.tos()).toBe(0)
-//   });
-// });
+//   })
+// })
