@@ -8,14 +8,14 @@
 const mintVersion = () => { return 'MINT Version 1.0.0 Build(20220207)' }
 const mintSignon = () => { return 'MINT 1.0 >' }
 
-let mintTos = 0
-const mintStack = new Array(8192)
+const ram = []
+const RAM_SIZE = 8192
+const STACK_SIZE = 256
+let tor = RAM_SIZE - 1 // the top of ram (last address)
 
-const mintPush = (val) => {
-    mintStack[mintTos] = val
-    mintTos += 1
-    if (mintTos > mintStack.length) { console.error('stack overflow') }
-}
+const mintInit = () => { if (ram.length != RAM_SIZE) { for (let i = 0; i < RAM_SIZE; i++) ram.push(0) } tor = RAM_SIZE - 1 }
+
+const mintPush = (val) => { ram[tor] = val; tor -= 1; if (tor < RAM_SIZE - STACK_SIZE) { console.error('stack overflow') } }
 
 let isNumber = false
 let number = 0
@@ -151,8 +151,6 @@ let defining = false;
 */
 const doColon = () => { endNumber(); defining = true; mintTodo('start defining function') }
 
-const mintFunctions = []
-
 /**
 * End defining a function
 */
@@ -212,13 +210,26 @@ const mintInterpreter = (str) => {
     chars.forEach(ch => {
         mintInterpret(ch)
     })
-    if (mintTos === 0) { endNumber() }
+    if (tor == RAM_SIZE - 1) { endNumber() } // todo check this
 }
 
 const mintPop = () => {
-    mintTos -= 1
-    if (mintTos < 0) { console.error('stack underun.') }
-    return mintStack[mintTos]
+    tor += 1
+    if (tor >= RAM_SIZE) { console.error('stack underun.') }
+    return ram[tor]
+}
+
+
+/**
+ * Test the stack during debug
+ */
+const testStack = () => {
+    mintInit();
+    console.log('tor = ' + tor)
+    mintPush(55)
+    console.log('tor = ' + tor)
+    console.log('popped = ' + mintPop())
+    console.log('tor = ' + tor)
 }
 
 /**
@@ -227,6 +238,8 @@ const mintPop = () => {
  * @param {*} expects The expected result
  */
 const mintTest = (str, expects) => {
+    mintInit()
+    console.log('before tor = ' + tor)
     mintInterpreter(str)
     const result = mintPop()
     if (expects === result) {
@@ -234,12 +247,20 @@ const mintTest = (str, expects) => {
     } else {
         console.error('test failed ' + str + ' expects ' + expects + ' got ' + result)
     }
-    console.log('tos = ' + mintTos)
+    console.log('after tor = ' + tor)
+    console.log('ram size = ' + ram.length)
 }
 
-mintTest('2a!a@', 2)
-mintTest('3x! 1 x@+x! x@', 4)
-mintTest('3x! 1_ x@+x! x@', 2)
-mintTest(':X1; X', 1)
-mintTest(':A100; A', 100)
-mintTest(':Aa!; 3A a@', 3)
+// testStack()
+
+// mintTest('10', 10)
+// mintTest('#10 3+', 0x10 + 3)
+
+// mintTest('2a!a@', 2)
+// mintTest('3x! 1 x@+x! x@', 4)
+// mintTest('3x! 1_ x@+x! x@', 2)
+// mintTest(':X1; X', 1)
+// mintTest(':A100; A', 100)
+//mintTest(':Aa!; 3A a@', 3)
+
+

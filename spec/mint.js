@@ -1,6 +1,8 @@
 'strict'
 
-describe('Mint Interpreter', function () {
+describe('MINT Interpreter', function () {
+  mintInit()
+
   it('Shall have a valid version', function () {
     expect(mintVersion()).toBe('MINT Version 1.0.0 Build(20220207)')
   })
@@ -198,10 +200,12 @@ describe('Mint Interpreter', function () {
     mintInterpreter(':A100;A')
     expect(mintPop()).toBe(100)
   })
-  it('test ":Aa!; 3A a@", 3', function () {
-    mintInterpreter(':Aa!; 3A a@')
-    expect(mintPop()).toBe(3)
-  })
+
+
+  // it('test ":Aa!; 3A a@", 3', function () {
+  //   mintInterpreter(':Aa!; 3A a@')
+  //   expect(mintPop()).toBe(3)
+  // })
 
 })
 
@@ -245,17 +249,17 @@ describe('Mint Interpreter', function () {
 //   // test "2 \\1x! \\1x@", 2
 // })
 
-// describe("Stack Operations", function () {
-//   const m = mint()
-//   it("push a value onto the stack", function () {
-//     m.init()
-//     m.push(55)
-//     expect(m.tos()).toBe(1)
-//   })
-//   it("pop a value from the stack", function () {
-//     m.init()
-//     m.push(55)
-//     expect(mintPop()).toBe(55)
-//     expect(m.tos()).toBe(0)
-//   })
-// })
+describe("MINT Stack Operations", function () {
+  mintInit()
+  it("push a value onto the stack", function () {
+    expect(tor).toBe(RAM_SIZE - 1)
+    mintPush(0x55)
+    expect(tor).toBe(RAM_SIZE - 2)
+  })
+  it("pop a value from the stack", function () {
+    tor = RAM_SIZE - 1
+    mintPush(0xaa)
+    expect(mintPop()).toBe(0xaa)
+    expect(tor).toBe(RAM_SIZE - 1)
+  })
+})
